@@ -1,4 +1,6 @@
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.ElementsCollection;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -6,10 +8,11 @@ import java.io.File;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.open;
 
-
 public class PracticeFormTest {
+
     File file = new File("src/test/resources/1.png");
     private final String firstName = "Semyon";
     private String lastName = "lastName";
@@ -23,9 +26,20 @@ public class PracticeFormTest {
     private String hobby = "Sports";
     private String address = "SPB";
 
+    @BeforeAll
+    static void beforeAll() {
+        Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl = "https://demoqa.com";
+        Configuration.pageLoadStrategy = "eager";
+    }
+
     @Test
     void checkRegistrationPracticeForm() {
-        open("https://demoqa.com/automation-practice-form");
+
+        open("/automation-practice-form");
+
+        executeJavaScript("$('#mys-overlay').remove();");
+
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userEmail").setValue(userEmail);
@@ -45,7 +59,6 @@ public class PracticeFormTest {
         $("#currentAddress").setValue(address);
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Delhi").pressEnter();
-
         $("#submit").click();
 
         ElementsCollection param = $(".table-responsive").$$("tr");
