@@ -21,5 +21,11 @@ public class JavaLesson1 {
         System.out.println(result2);
         System.out.println(result3);
         System.out.println(result4);
+
+        int maxInt = Integer.MAX_VALUE;
+        long maxLong = Long.MAX_VALUE;
+
+        System.out.println(maxInt + 1);
+        System.out.println(maxLong + 1);
     }
 }
