@@ -73,8 +73,8 @@ public class PracticeFormPage {
         return this;
     }
 
-    public PracticeFormPage uploadFile(String hobby) {
-        uploadElement.uploadFromClasspath("1.png");
+    public PracticeFormPage uploadFile(String file) {
+        uploadElement.uploadFromClasspath(file);
         return this;
     }
 
