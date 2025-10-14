@@ -5,36 +5,37 @@ import pages.PracticeFormPage;
 import pages.components.SubmittingFormComponent;
 
 
-public class PracticeFormTest extends Data {
+public class PracticeFormTest extends TestBase {
 
     PracticeFormPage practiceForm = new PracticeFormPage();
     SubmittingFormComponent submittingForm = new SubmittingFormComponent();
+    Data data = new Data();
 
     @Test
     void checkRegistrationPracticeFormTest() {
         practiceForm.openDemoQaForm()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setUserEmail(userEmail)
-                .chooseGender(gender)
-                .setUserNumber(userNumber.toString())
-                .setCalendar(day.toString(), month, year.toString())
-                .setSubjects(subjects)
-                .setHobby(hobby)
-                .uploadFile(file)
-                .setAddress(address)
-                .setStateAndCity(state, city)
+                .setFirstName(data.firstName)
+                .setLastName(data.lastName)
+                .setUserEmail(data.userEmail)
+                .chooseGender(data.gender)
+                .setUserNumber(data.userNumber.toString())
+                .setCalendar(data.day.toString(), data.month, data.year.toString())
+                .setSubjects(data.subjects)
+                .setHobby(data.hobby)
+                .uploadFile(data.file)
+                .setAddress(data.address)
+                .setStateAndCity(data.state, data.city)
                 .openSubmittingForm();
-        submittingForm.checkParamSubmittingForm("Student Name", firstName + " " + lastName)
-                .checkParamSubmittingForm("Student Email", userEmail)
-                .checkParamSubmittingForm("Gender", gender)
-                .checkParamSubmittingForm("Mobile", userNumber.toString())
-                .checkParamSubmittingForm("Date of Birth", day + " " + month + "," + year)
-                .checkParamSubmittingForm("Subjects", subjects)
-                .checkParamSubmittingForm("Hobbies", hobby)
-                .checkParamSubmittingForm("Address", address)
-                .checkParamSubmittingForm("State and City", state + " " + city)
-                .checkParamSubmittingForm("Picture", file);
+        submittingForm.checkParamSubmittingForm("Student Name", data.firstName + " " + data.lastName)
+                .checkParamSubmittingForm("Student Email", data.userEmail)
+                .checkParamSubmittingForm("Gender", data.gender)
+                .checkParamSubmittingForm("Mobile", data.userNumber.toString())
+                .checkParamSubmittingForm("Date of Birth", data.day + " " + data.month + "," + data.year)
+                .checkParamSubmittingForm("Subjects", data.subjects)
+                .checkParamSubmittingForm("Hobbies", data.hobby)
+                .checkParamSubmittingForm("Address", data.address)
+                .checkParamSubmittingForm("State and City", data.state + " " + data.city)
+                .checkParamSubmittingForm("Picture", data.file);
 
     }
 
@@ -48,13 +49,13 @@ public class PracticeFormTest extends Data {
     void shouldOpenFormWithMinimalRequiredField() {
         practiceForm.openDemoQaForm()
                 .openSubmittingForm()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .chooseGender(gender)
-                .setUserNumber(userNumber.toString())
+                .setFirstName(data.firstName)
+                .setLastName(data.lastName)
+                .chooseGender(data.gender)
+                .setUserNumber(data.userNumber.toString())
                 .openSubmittingForm();
-        submittingForm.checkParamSubmittingForm("Student Name", firstName + " " + lastName)
-                .checkParamSubmittingForm("Gender", gender)
-                .checkParamSubmittingForm("Mobile", userNumber.toString());
+        submittingForm.checkParamSubmittingForm("Student Name", data.firstName + " " + data.lastName)
+                .checkParamSubmittingForm("Gender", data.gender)
+                .checkParamSubmittingForm("Mobile", data.userNumber.toString());
     }
 }
