@@ -2,13 +2,13 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 import pages.PracticeFormPage;
-import pages.SubmittingFormPage;
+import pages.components.SubmittingFormComponent;
 
 
 public class PracticeFormTest extends Data {
 
     PracticeFormPage practiceForm = new PracticeFormPage();
-    SubmittingFormPage submittingForm = new SubmittingFormPage();
+    SubmittingFormComponent submittingForm = new SubmittingFormComponent();
 
     @Test
     void checkRegistrationPracticeFormTest() {
@@ -17,7 +17,8 @@ public class PracticeFormTest extends Data {
                 .setLastName(lastName)
                 .setUserEmail(userEmail)
                 .chooseGender(gender)
-                .setUserNumber(userNumber.toString()).setCalendar(day.toString(), month, year.toString())
+                .setUserNumber(userNumber.toString())
+                .setCalendar(day.toString(), month, year.toString())
                 .setSubjects(subjects)
                 .setHobby(hobby)
                 .uploadFile(file)
@@ -41,5 +42,19 @@ public class PracticeFormTest extends Data {
     void shouldNotOpenFormWhenRequiredFieldsMissingTest() {
         practiceForm.openDemoQaForm().openSubmittingForm();
         submittingForm.checkModalIsNotOpen();
+    }
+
+    @Test
+    void shouldOpenFormWithMinimalRequiredField() {
+        practiceForm.openDemoQaForm()
+                .openSubmittingForm()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .chooseGender(gender)
+                .setUserNumber(userNumber.toString())
+                .openSubmittingForm();
+        submittingForm.checkParamSubmittingForm("Student Name", firstName + " " + lastName)
+                .checkParamSubmittingForm("Gender", gender)
+                .checkParamSubmittingForm("Mobile", userNumber.toString());
     }
 }

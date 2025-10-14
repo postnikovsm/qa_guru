@@ -1,4 +1,4 @@
-package pages;
+package pages.components;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -7,16 +7,16 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
-public class SubmittingFormPage {
+public class SubmittingFormComponent {
     private final ElementsCollection paramTable = $(".table-responsive").$$("tr");
     private final SelenideElement modalForm = $("#example-modal-sizes-title-lg");
 
-    public SubmittingFormPage checkParamSubmittingForm(String labels, String values) {
+    public SubmittingFormComponent checkParamSubmittingForm(String labels, String values) {
         paramTable.findBy(text(labels)).shouldHave(text(values));
-        return new SubmittingFormPage();
+        return new SubmittingFormComponent();
     }
 
-    public SubmittingFormPage checkModalIsNotOpen() {
+    public SubmittingFormComponent checkModalIsNotOpen() {
         modalForm.shouldNotBe(visible);
         return this;
     }
