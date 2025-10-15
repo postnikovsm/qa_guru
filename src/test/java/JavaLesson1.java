@@ -1,16 +1,19 @@
 public class JavaLesson1 {
     public static void main(String[] args) {
+
         int a = 5;
         int b = 4;
         double c = 4.0;
+        boolean d = true;
+        boolean e = false;
 
-        System.out.println(a+b);
-        System.out.println(a-b);
-        System.out.println(a*b);
-        System.out.println(a/b);
+        System.out.println(a + b);
+        System.out.println(a - b);
+        System.out.println(a * b);
+        System.out.println(a / b);
 
-        System.out.println(a+c);
-        System.out.println(b-c);
+        System.out.println(a + c);
+        System.out.println(b - c);
 
         boolean result1 = a > b;
         boolean result2 = a < b;
@@ -27,5 +30,13 @@ public class JavaLesson1 {
 
         System.out.println(maxInt + 1);
         System.out.println(maxLong + 1);
+
+        System.out.println(d && e);
+        System.out.println(d & e);
+
+        System.out.println(d || e);
+        System.out.println(d | e);
+
+        System.out.println(!d);
     }
 }
