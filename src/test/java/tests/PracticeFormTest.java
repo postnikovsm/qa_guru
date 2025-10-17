@@ -16,7 +16,6 @@ public class PracticeFormTest extends TestBase {
     @Test
     void checkRegistrationPracticeFormWithFakerTest() {
 
-        System.out.println(1);
         practiceForm.openDemoQaForm()
                 .setFirstName(dataFaker.firstName)
                 .setLastName(dataFaker.lastName)
