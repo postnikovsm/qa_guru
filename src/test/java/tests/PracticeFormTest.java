@@ -10,6 +10,38 @@ public class PracticeFormTest extends TestBase {
     PracticeFormPage practiceForm = new PracticeFormPage();
     SubmittingFormComponent submittingForm = new SubmittingFormComponent();
     Data data = new Data();
+    DataGenerator dataFaker = new DataGenerator();
+
+
+    @Test
+    void checkRegistrationPracticeFormWithFakerTest() {
+
+        System.out.println(1);
+        practiceForm.openDemoQaForm()
+                .setFirstName(dataFaker.firstName)
+                .setLastName(dataFaker.lastName)
+                .setUserEmail(dataFaker.userEmail)
+                .chooseGender(dataFaker.gender)
+                .setUserNumber(dataFaker.userNumber)
+                .setCalendar(dataFaker.formattedDay, dataFaker.monthCorrect, dataFaker.year)
+                .setSubjects(dataFaker.subjects)
+                .setHobby(dataFaker.hobby)
+                .uploadFile(dataFaker.file)
+                .setAddress(dataFaker.address)
+                .setStateAndCity(dataFaker.state, dataFaker.city)
+                .openSubmittingForm();
+        submittingForm.checkParamSubmittingForm("Student Name", dataFaker.firstName + " " + dataFaker.lastName)
+                .checkParamSubmittingForm("Student Email", dataFaker.userEmail)
+                .checkParamSubmittingForm("Gender", dataFaker.gender)
+                .checkParamSubmittingForm("Mobile", dataFaker.userNumber)
+                .checkParamSubmittingForm("Date of Birth", dataFaker.day + " " + dataFaker.month + "," + dataFaker.year)
+                .checkParamSubmittingForm("Subjects", dataFaker.subjects)
+                .checkParamSubmittingForm("Hobbies", dataFaker.hobby)
+                .checkParamSubmittingForm("Address", dataFaker.address)
+                .checkParamSubmittingForm("State and City", dataFaker.state + " " + dataFaker.city)
+                .checkParamSubmittingForm("Picture", dataFaker.file);
+
+    }
 
     @Test
     void checkRegistrationPracticeFormTest() {

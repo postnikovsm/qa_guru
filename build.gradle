@@ -7,11 +7,14 @@ repositories {
 }
 
 def selenideVersion = '6.19.1',
-        junitVersion = '5.9.3'
+    junitVersion = '5.9.3',
+    fakerVersion = '1.0.2'
+
 dependencies {
-    testImplementation (
+    testImplementation(
             "com.codeborne:selenide:$selenideVersion",
-            "org.junit.jupiter:junit-jupiter:$junitVersion")
+            "org.junit.jupiter:junit-jupiter:$junitVersion",
+            ("com.github.javafaker:javafaker:$fakerVersion"))
 }
 
 tasks.withType(JavaCompile) {
