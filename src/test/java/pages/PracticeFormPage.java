@@ -93,4 +93,12 @@ public class PracticeFormPage {
         submitElement.click();
         return new PracticeFormPage();
     }
+
+    public PracticeFormPage removeFixedBannerAndFooter() {
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+        return new PracticeFormPage();
+    }
+
+
 }

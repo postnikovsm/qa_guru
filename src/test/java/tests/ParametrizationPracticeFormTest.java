@@ -22,6 +22,7 @@ public class ParametrizationPracticeFormTest extends TestBase {
     @ParameterizedTest(name = "ПРоверка регистрации для {0}")
     void checkRegistrationPracticeFormWithFakerTest(String name) {
         practiceForm.openDemoQaForm()
+                .removeFixedBannerAndFooter()
                 .setFirstName(name)
                 .setLastName(dataFaker.lastName)
                 .setUserEmail(dataFaker.userEmail)
