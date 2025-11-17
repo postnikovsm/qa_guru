@@ -56,6 +56,7 @@ public class ParametrizationPracticeFormTest extends TestBase {
     @ParameterizedTest(name = "ПРоверка регистрации для - {0} {1}")
     void checkRegistrationPracticeFormTest(String firstName, String lastName) {
         practiceForm.openDemoQaForm()
+                .removeFixedBannerAndFooter()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(data.userEmail)
@@ -84,6 +85,7 @@ public class ParametrizationPracticeFormTest extends TestBase {
     @ParameterizedTest(name = "ПРоверка регистрации для - {0} {1}")
     void checkRegistrationPracticeFormTestFromCsv(String firstName, String lastName) {
         practiceForm.openDemoQaForm()
+                .removeFixedBannerAndFooter()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(data.userEmail)
@@ -110,13 +112,16 @@ public class ParametrizationPracticeFormTest extends TestBase {
 
     @Test
     void shouldNotOpenFormWhenRequiredFieldsMissingTest() {
-        practiceForm.openDemoQaForm().openSubmittingForm();
+        practiceForm.openDemoQaForm().removeFixedBannerAndFooter()
+                .openSubmittingForm();
+
         submittingForm.checkModalIsNotOpen();
     }
 
     @Test
     void shouldOpenFormWithMinimalRequiredField() {
         practiceForm.openDemoQaForm()
+                .removeFixedBannerAndFooter()
                 .openSubmittingForm()
                 .setFirstName(data.firstName)
                 .setLastName(data.lastName)
