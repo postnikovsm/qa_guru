@@ -6,6 +6,7 @@ import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 
+
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 
@@ -17,11 +18,12 @@ public class TestBase {
         Configuration.pageLoadStrategy = "eager";
         step("открываем нужный репозиторий GitHub",
                 () -> open("https://github.com/" + REPOSITORY));
-        SelenideLogger.addListener("allureListener", new AllureSelenide());
+
     }
 
     @AfterEach
     public void afterEach() {
-        new AllureSteps().takeScreenshot("Последний шаг");
+        SelenideLogger.addListener("allureListener", new AllureSelenide());
+        new Helpers().takeScreenshot("Последний шаг");
     }
-}
+ }
