@@ -14,14 +14,16 @@ repositories {
 def selenideVersion = '7.12.0',
     junitVersion = '5.9.3',
     fakerVersion = '1.0.2',
-    allureVersion = '2.29.1'
+    allureVersion = '2.29.1',
+    restAssured = '5.5.6'
 
 dependencies {
     testImplementation(
             "com.codeborne:selenide:$selenideVersion",
             "org.junit.jupiter:junit-jupiter:$junitVersion",
             "com.github.javafaker:javafaker:$fakerVersion",
-            "io.qameta.allure:allure-selenide:$allureVersion")
+            "io.qameta.allure:allure-selenide:$allureVersion",
+            "io.rest-assured:rest-assured:$restAssured",)
 }
 
 tasks.withType(JavaCompile) {
