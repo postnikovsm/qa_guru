@@ -44,8 +44,6 @@ public class ReqresApiTest {
                         .spec(responseSpec200OK)
                         .extract().as(ResponseListUsersDto.class));
 
-        assertEquals(6, listUsers.getData().size());
-
         step("Проверка количества сотрудников", () ->
                 assertEquals(6, listUsers.getData().size()));
     }
@@ -120,7 +118,6 @@ public class ReqresApiTest {
             assertNotNull(token.getToken(), "Токен не должен равняться null");
             assertFalse(token.getToken().isEmpty(), "Токен не должен быть пустым");
             assertEquals(17, token.getToken().length(), "Длина токена не равна 17");
-        });;
-
+        });
     }
 }
