@@ -8,5 +8,6 @@ public class TestBaseApi {
 
     public void setupEnvironment() {
         RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath="/api";
     }
 }

@@ -23,10 +23,9 @@ public class ReqresApiTest {
     @DisplayName("Проверка количества пользователей на 2ой странице")
     public void verifyDataArraySize() {
         given()
-                .basePath("/api/users")
                 .queryParam("page", 2)
                 .when()
-                .get()
+                .get("/users")
                 .then()
                 .log().body()
                 .statusCode(200)
@@ -44,12 +43,11 @@ public class ReqresApiTest {
                 """;
 
         given()
-                .basePath("/api/users")
                 .header(testBase.header)
                 .contentType(JSON)
                 .body(requestBody)
                 .when()
-                .post()
+                .post("/users")
                 .then()
                 .statusCode(201)
                 .log().body()
@@ -70,12 +68,11 @@ public class ReqresApiTest {
                 """;
 
         given()
-                .basePath("/api/users/2")
                 .header(testBase.header)
                 .contentType(JSON)
                 .body(requestBody)
                 .when()
-                .put()
+                .put("/api/users/2")
                 .then()
                 .statusCode(200)
                 .log().body()
@@ -89,10 +86,9 @@ public class ReqresApiTest {
     public void deleteUserTest() {
 
         given()
-                .basePath("/api/users/2")
                 .header(testBase.header)
                 .when()
-                .delete()
+                .delete("/api/users/2")
                 .then()
                 .log().body()
                 .statusCode(204).body(equalTo(""));
@@ -108,7 +104,7 @@ public class ReqresApiTest {
                 .contentType(JSON)
                 .log().uri()
                 .when()
-                .post("api/register")
+                .post("/register")
                 .then()
                 .log().body()
                 .statusCode(200)
