@@ -21,7 +21,7 @@ public class ReqresApiTest {
 
     @Test
     @DisplayName("Проверка количества пользователей на 2ой странице")
-    public void verifyDataArraySize() {
+    public void verifyDataArraySizeTest() {
         given()
                 .queryParam("page", 2)
                 .when()

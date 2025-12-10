@@ -33,7 +33,7 @@ public class ReqresApiTest {
 
     @Test
     @DisplayName("Проверка количества пользователей на 2ой странице")
-    public void verifyDataArraySize() {
+    public void verifyDataArraySizeTest() {
 
         ResponseListUsersDto listUsers = step("Запрос количества сотрудников", () ->
                 given(requestSpec)
