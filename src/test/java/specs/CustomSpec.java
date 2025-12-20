@@ -1,7 +1,7 @@
 package specs;
 
-import api.withModel.TestBaseApi;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.Header;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
@@ -12,30 +12,22 @@ import static io.restassured.filter.log.LogDetail.STATUS;
 import static io.restassured.http.ContentType.JSON;
 
 public class CustomSpec {
-    private static final TestBaseApi testBase = new TestBaseApi();
+
+    public static final Header header = new Header("x-api-key", "reqres-free-v1");
     public static RequestSpecification requestSpec = with()
             .filter(withCustomTemplates())
-            .header(testBase.header)
+            .header(header)
             .log().uri()
             .log().body()
             .log().headers()
             .contentType(JSON);
 
-    public static ResponseSpecification responseSpec200OK = new ResponseSpecBuilder()
-            .expectStatusCode(200)
-            .log(STATUS)
-            .log(BODY)
-            .build();
 
-    public static ResponseSpecification responseSpec201 = new ResponseSpecBuilder()
-            .expectStatusCode(201)
-            .log(STATUS)
-            .log(BODY)
-            .build();
-
-    public static ResponseSpecification responseSpec204 = new ResponseSpecBuilder()
-            .expectStatusCode(204)
-            .log(STATUS)
-            .log(BODY)
-            .build();
+    public static ResponseSpecification responseSpec(int expectedStatusCode) {
+        return new ResponseSpecBuilder()
+                .expectStatusCode(expectedStatusCode)
+                .log(STATUS)
+                .log(BODY)
+                .build();
+    }
 }

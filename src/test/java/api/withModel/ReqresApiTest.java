@@ -1,5 +1,6 @@
 package api.withModel;
 
+import io.restassured.RestAssured;
 import model.createUser.UserRequestDto;
 import model.createUser.UserResponseDto;
 import model.listUser.ResponseListUsersDto;
@@ -16,33 +17,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static specs.CustomSpec.requestSpec;
-import static specs.CustomSpec.responseSpec200OK;
-import static specs.CustomSpec.responseSpec201;
-import static specs.CustomSpec.responseSpec204;
+import static specs.CustomSpec.responseSpec;
+
 
 public class ReqresApiTest {
 
-    private static final TestBaseApi testBase = new TestBaseApi();
     UserRequestDto user = new UserRequestDto();
     UserLoginRequestDto userLogin = new UserLoginRequestDto();
 
     @BeforeAll
     static void init() {
-        testBase.setupEnvironment();
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath="/api";
     }
 
     @Test
     @DisplayName("Проверка количества пользователей на 2ой странице")
     public void verifyDataArraySizeTest() {
-
         ResponseListUsersDto listUsers = step("Запрос количества сотрудников", () ->
-                given(requestSpec)
+                given()
+                        .spec(requestSpec)
                         .queryParam("page", 2)
                         .when()
                         .get("/users")
                         .then()
-                        .spec(responseSpec200OK)
-                        .extract().as(ResponseListUsersDto.class));
+                        .spec(responseSpec(200))
+                        .extract().as(ResponseListUsersDto.class)
+        );
 
         step("Проверка количества сотрудников", () ->
                 assertEquals(6, listUsers.getData().size()));
@@ -60,7 +61,7 @@ public class ReqresApiTest {
                         .when()
                         .post("/users")
                         .then()
-                        .spec(responseSpec201)
+                        .spec(responseSpec(201))
                         .extract().as(UserResponseDto.class));
         step("Проверка имени и фамилии созданного юзера", () -> {
             assertEquals(user.getName(), userResponse.getName());
@@ -69,21 +70,23 @@ public class ReqresApiTest {
     }
 
     @Test
-    @DisplayName("Обновление  пользователя")
+    @DisplayName("Обновление пользователя")
     public void updateUserTest() {
         user.setName("Бла-бла");
         user.setJob("Начальник");
 
         UserResponseDto userResponse = step("Обновление юзера", () ->
-                given(requestSpec)
+                given()
+                        .spec(requestSpec)
                         .body(user)
                         .when()
                         .put("/api/users/2")
                         .then()
-                        .spec(responseSpec200OK)
-                        .extract().as(UserResponseDto.class));
+                        .spec(responseSpec(200))
+                        .extract().as(UserResponseDto.class)
+        );
 
-        step("Проверка имени и фамилии обновленного юзера", () -> {
+        step("Проверка имени и должности обновленного юзера", () -> {
             assertEquals(user.getName(), userResponse.getName());
             assertEquals(user.getJob(), userResponse.getJob());
         });
@@ -97,7 +100,7 @@ public class ReqresApiTest {
                 .when()
                 .delete("/api/users/2")
                 .then()
-                .spec(responseSpec204).body(equalTo(""));
+                .spec(responseSpec(204)).body(equalTo(""));
     }
 
     @Test
@@ -112,7 +115,7 @@ public class ReqresApiTest {
                         .when()
                         .post("/register")
                         .then()
-                        .spec(responseSpec200OK)
+                        .spec(responseSpec(200))
                         .extract().as(UserTokenResponseDto.class));
         step("Проверка токена", () -> {
             assertNotNull(token.getToken(), "Токен не должен равняться null");
